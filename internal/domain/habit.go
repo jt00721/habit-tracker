@@ -2,14 +2,6 @@ package domain
 
 import "time"
 
-type Frequency string
-
-const (
-	Daily   Frequency = "daily"
-	Weekly  Frequency = "weekly"
-	Monthly Frequency = "monthly"
-)
-
 type Habit struct {
 	ID               uint   `gorm:"primaryKey"`
 	Name             string `gorm:"not null"`
