@@ -52,3 +52,23 @@ func (repo *HabitRepository) Delete(id uint) error {
 	}
 	return nil
 }
+
+func (repo *HabitRepository) SafeUpdate(habit *domain.Habit) error {
+	tx := repo.DB.Begin()
+	if err := tx.Save(habit).Error; err != nil {
+		tx.Rollback()
+		log.Println("Error updating habit transaction:", err)
+		return err
+	}
+	return tx.Commit().Error
+}
+
+func (repo *HabitRepository) GetStreaks() ([]domain.Habit, error) {
+	var habits []domain.Habit
+	err := repo.DB.Where("current_streak > ?", 0).Order("current_streak DESC").Find(&habits).Error
+	if err != nil {
+		log.Println("Error fetching habit streaks:", err)
+		return nil, err
+	}
+	return habits, nil
+}
