@@ -15,5 +15,5 @@ func SetupRoutes(router *gin.Engine, uc *usecase.HabitUsecase) {
 	router.PUT("/api/habits/:id", habitHandler.UpdateHabitApi)
 	router.DELETE("/api/habits/:id", habitHandler.DeleteHabitApi)
 	router.GET("/api/habits/with_streaks", habitHandler.GetStreaksApi)
-	router.PUT("/api/habits/:id/mark_complete", habitHandler.MarkHabitCompletedApi)
+	router.PATCH("/api/habits/:id/mark_complete", habitHandler.MarkHabitCompletedApi)
 }
