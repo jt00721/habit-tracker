@@ -12,7 +12,7 @@ import (
 )
 
 type HabitUsecase struct {
-	HabitRepo repository.HabitRepository
+	HabitRepo *repository.HabitRepository
 }
 
 func (usecase *HabitUsecase) CreateHabit(habit *domain.Habit) error {
@@ -84,15 +84,6 @@ func (usecase *HabitUsecase) UpdateHabit(habit *domain.Habit) error {
 	log.Printf("Habit (%s) updated successfully", habit.Name)
 	return nil
 }
-
-// func validateHabit(name, frequency string) bool {
-// 	if name == "" {
-// 		return fmt.Errorf("habit name cannot be empty")
-// 	}
-
-// 	validFrequencies := map[string]bool{"daily": true, "weekly": true, "monthly": true}
-// 	return validFrequencies[frequency]
-// }
 
 func (usecase *HabitUsecase) DeleteHabit(id uint) error {
 	habit, err := usecase.GetHabitByID(id)
