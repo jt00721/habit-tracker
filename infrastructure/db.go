@@ -13,10 +13,10 @@ import (
 
 var DB *gorm.DB
 
-func InitDB() {
+func InitDB() error {
 	err := godotenv.Load()
 	if err != nil {
-		log.Println("Error loading .env file:", err)
+		log.Println("Warning: .env file not found, using system environment variables")
 	}
 
 	dbName := os.Getenv("POSTGRES_DB")
@@ -33,15 +33,19 @@ func InitDB() {
 		os.Getenv("POSTGRES_PORT"),
 	)
 
-	DB, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal("Failed to connect to database:", err)
+		return fmt.Errorf("failed to connect to database: %w", err)
 	}
 
-	err = DB.AutoMigrate(&domain.Habit{})
+	err = db.AutoMigrate(&domain.Habit{})
 	if err != nil {
 		log.Fatal("Migration failed:", err)
+		return fmt.Errorf("failed to auto-migrate database model: %w", err)
 	}
 
+	DB = db
 	log.Println("Database intialised & migrated successfully!")
+	return nil
 }
