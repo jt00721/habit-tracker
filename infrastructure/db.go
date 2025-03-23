@@ -19,17 +19,12 @@ func InitDB() error {
 		log.Println("Warning: .env file not found, using system environment variables")
 	}
 
-	dbName := os.Getenv("POSTGRES_DB")
-	if os.Getenv("TEST_MODE") == "true" {
-		dbName = os.Getenv("POSTGRES_TEST_DB")
-	}
-
 	dsn := fmt.Sprintf(
 		"host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
 		os.Getenv("POSTGRES_HOST"),
 		os.Getenv("POSTGRES_USER"),
 		os.Getenv("POSTGRES_PASSWORD"),
-		dbName,
+		os.Getenv("POSTGRES_DB"),
 		os.Getenv("POSTGRES_PORT"),
 	)
 
