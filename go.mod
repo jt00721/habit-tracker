@@ -1,6 +1,6 @@
 module github.com/jt00721/habit-tracker
 
-go 1.24
+go 1.20
 
 require gorm.io/driver/postgres v1.5.11
 
