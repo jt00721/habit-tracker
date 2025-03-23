@@ -7,12 +7,11 @@ import (
 	"time"
 
 	"github.com/jt00721/habit-tracker/internal/domain"
-	"github.com/jt00721/habit-tracker/internal/repository"
 	"gorm.io/gorm"
 )
 
 type HabitUsecase struct {
-	HabitRepo *repository.HabitRepository
+	HabitRepo domain.HabitRepository
 }
 
 func (usecase *HabitUsecase) CreateHabit(habit *domain.Habit) error {
