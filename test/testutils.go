@@ -41,6 +41,11 @@ func NewTestDB(t *testing.T) (*gorm.DB, func()) {
 		t.Fatalf("Failed to connect to test database: %v", err)
 	}
 
+	teardownSQL, err := os.ReadFile("../../test/testdata/teardown.sql")
+	if err == nil {
+		_ = db.Exec(string(teardownSQL)) // ignore errors, it's okay if the table doesn't exist yet
+	}
+
 	setupSQL, err := os.ReadFile("../../test/testdata/setup.sql")
 	if err != nil {
 		t.Fatalf("Failed to read setup SQL: %v", err)
