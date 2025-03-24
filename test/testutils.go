@@ -54,6 +54,8 @@ func NewTestDB(t *testing.T) (*gorm.DB, func()) {
 		t.Fatalf("Failed to execute setup SQL: %v", err)
 	}
 
+	log.Println("Setup SQL executed")
+
 	return db, func() {
 		teardownSQL, err := os.ReadFile("../../test/testdata/teardown.sql")
 		if err != nil {
@@ -62,6 +64,8 @@ func NewTestDB(t *testing.T) (*gorm.DB, func()) {
 		if err := db.Exec(string(teardownSQL)).Error; err != nil {
 			t.Fatalf("Failed to execute teardown SQL: %v", err)
 		}
+
+		log.Println("Teardown SQL executed")
 		sqlDB, _ := db.DB()
 		sqlDB.Close()
 	}
