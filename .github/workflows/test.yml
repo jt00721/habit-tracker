@@ -31,6 +31,7 @@ jobs:
       POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
       POSTGRES_TEST_DB: ${{ secrets.POSTGRES_TEST_DB }}
+      GOMAXPROCS: 1
 
     steps:
       - name: Checkout repository
