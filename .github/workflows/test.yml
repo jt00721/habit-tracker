@@ -78,5 +78,5 @@ jobs:
       - name: Run teardown.sql to clean up test DB
         if: always()
         run: |
-          PGPASSWORD=$POSTGRES_PASSWORD psql -h localhost -U $POSTGRES_USER -d $POSTGRES_TEST_DB -f ./internal/repository/testdata/teardown.sql
+          PGPASSWORD=$POSTGRES_PASSWORD psql -h localhost -U $POSTGRES_USER -d $POSTGRES_TEST_DB -f ./test/testdata/teardown.sql
 
